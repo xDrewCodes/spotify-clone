@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://kit.fontawesome.com/8a3e67506d.js" crossorigin="anonymous"></script>
+    <script src="./app.js" defer></script>
+</head>
+
+<body>
+    <nav>
+        <div class="nav__edits">
+            <i class="fas fa-ellipsis-h nav__settings"></i>
+            <div class="nav__travelers">
+                <i class="fas fa-angle-left nav__backward"></i>
+                <i class="fas fa-angle-right nav__forward"></i>
+            </div>
+        </div>
+        <div class="nav__search">
+            <i class="fas fa-home nav__home--icon"></i>
+            <div class="nav__search-bar">
+                <i id="search__button" class="fas fa-search nav__search--icon"></i>
+                <input id="search__input" type="text" placeholder="What do you want to play?"
+                    class="nav__search-bar--field">
+                <i class="fas fa-caret-square-right nav__browse--icon"></i>
+            </div>
+        </div>
+        <div class="nav__controls">
+            <i class="fas fa-bell nav__notifications"></i>
+            <i class="fas fa-users nav__friend-activity"></i>
+            <div class="nav__profile"></div>
+            <i class="fas fa-window-minimize nav__minimize"></i>
+            <i class="fas fa-clone nav__maximize"></i>
+            <i class="fas fa-times nav__close"></i>
+        </div>
+    </nav>
+    <div class="sections">
+        <section id="library">
+            <div class="library__header">
+                <div class="library__title section__title">Your Library</div>
+                <div class="library__controls">
+                    <div class="library__new"></div>
+                    <div class="library__expand"></div>
+                </div>
+                <div class="library__categories">
+                    <div class="library__category category">Playlists</div>
+                    <div class="library__category category">Songs</div>
+                    <div class="library__category category">Albums</div>
+                    <div class="library__category category">Artists</div>
+                </div>
+                <div class="library__filters">
+                    <div class="library__search"></div>
+                    <div class="library__sort"></div>
+                </div>
+            </div>
+            <div id="library__container" class="library__main">
+
+            </div>
+        </section>
+        <section id="home">
+            <div class="search__results">
+                <div class="search__top-result">
+                    <div class="search__top-result--title">Top Result</div>
+                    <div id="result__top" class="search__top-result--song">
+
+                    </div>
+                </div>
+                <div class="search__songs">
+                    <div class="search__songs--title">Songs</div>
+                    <div id="result__songs" class="search__songs">
+
+                    </div>
+                </div>
+            </div>
+            <div class="home__main">
+                <div class="home__header">
+                    <div class="home__categories">
+                        <div class="home__category category">All</div>
+                        <div class="home__category category selected__category">Music</div>
+                        <div class="home__category category">Podcasts</div>
+                        <div class="home__category category">Audiobooks</div>
+                    </div>
+                    <div class="home__recents">
+                        <div class="home__recent"></div>
+                        <div class="home__recent"></div>
+                        <div class="home__recent"></div>
+                        <div class="home__recent"></div>
+                        <div class="home__recent"></div>
+                        <div class="home__recent"></div>
+                        <div class="home__recent"></div>
+                        <div class="home__recent"></div>
+                    </div>
+                </div>
+                <div class="home__rec-today home__sub-section">
+                    <div class="home__sub-section--title">Recommended for today</div>
+                    <div class="home__sub-section--container">
+
+                    </div>
+                </div>
+                <div class="home__fav-artists home__sub-section">
+                    <div class="home__sub-section--title">Your favorite artists</div>
+                    <div class="home__sub-section--container">
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="now-playing">
+
+        </section>
+    </div>
+    <div class="playback">
+        <div id="playback__song" class="playback__song">
+
+        </div>
+        <div class="playback__controls">Pause Play Skip</div>
+        <div class="playback__edits">
+            <i class="fas fa-times playback__now-playing"></i>
+            <i class="fas fa-times playback__lyrics"></i>
+            <i class="fas fa-times playback__queue"></i>
+            <i class="fas fa-times playback__output"></i>
+            <i class="fas fa-times playback__volume"></i>
+            <div class="playback__volume--bar"></div>
+            <i class="fas fa-times playback__miniplayer"></i>
+            <i class="fas fa-times playback__full-screen"></i>
+        </div>
+    </div>
+</body>
+
+</html>
