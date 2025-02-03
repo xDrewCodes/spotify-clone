@@ -67,6 +67,8 @@ let currentAudio = null;
 const UIController = (function () {
 
     const DOMElements = {
+        body: 'body',
+        homeButton: '#nav__home--button',
         searchInput: '#search__input',
         searchButton: '#search__button',
         topResultContainer: '#result__top',
@@ -80,7 +82,7 @@ const UIController = (function () {
                     <img src="${track.album.images[0].url}" alt="${track.name}">
                     <div class="track__info">
                         <p>${track.name}</p>
-                        <p>${track.artists[0].name}</p>
+                        <p class="track__artist">${track.artists[0].name}</p>
                     </div>
                 </div>`
     }
@@ -142,44 +144,58 @@ const UIController = (function () {
             })
         },
         playTrack(track) {
-          console.log(track)
+            console.log(track)
             //  currentAudio = new Audio(track.preview_url);
-          //  currentAudio.play().then(() => {
-          //      console.log(`Playing: ${track.name} by ${track.artists.map(artist => artist.name).join(', ')}`);
-          //  }).catch(error => {
-          //      console.error('Error playing track:', error);
-          //  });
+            //  currentAudio.play().then(() => {
+            //      console.log(`Playing: ${track.name} by ${track.artists.map(artist => artist.name).join(', ')}`);
+            //  }).catch(error => {
+            //      console.error('Error playing track:', error);
+            //  });
         },
         init() {
+
+            document.querySelector(DOMElements.homeButton).addEventListener('click', async () => {
+                document.querySelector(DOMElements.body).classList.remove('search__open')
+                document.querySelector(DOMElements.searchInput).value = ''
+            })
+            
             document.querySelector(DOMElements.searchInput).addEventListener('change', async () => {
+                
+                if ( document.querySelector(DOMElements.searchInput).value == '' ) {
+                    document.querySelector(DOMElements.body).classList.remove('search__open')
+                    document.querySelector(DOMElements.searchInput).value = ''
+                    return
+                }
+
                 const query = UIController.getInput()
                 const token = await APIController.getToken()
                 const tracks = await APIController.searchTracks(token, query)
                 UIController.displayTracks(tracks)
-                const specificTrackQuery = 'die with a smile'
-                const specificTrack = await APIController.searchTracks(token, specificTrackQuery, 1)
-                if (specificTrack.length > 0) {
-                    UIController.displayPlaybackSong(specificTrack)
-                    // Assuming you have a function to play the track
-                    UIController.playTrack(specificTrack[0])
-                }
+                document.querySelector(DOMElements.body).classList.add('search__open')
             })
 
-            // Load 7 random songs and 3 random artists into the library container when the page loads
+            document.querySelector(DOMElements.searchButton).addEventListener('click', async () => {
+                const query = UIController.getInput()
+                const token = await APIController.getToken()
+                const tracks = await APIController.searchTracks(token, query)
+                UIController.displayTracks(tracks)
+                document.querySelector(DOMElements.body).classList.add('search__open')
+            })
+
             window.addEventListener('load', async () => {
                 const token = await APIController.getToken()
 
-                const randomTrackQuery = 'b' // You can use any query to get random songs
-                const randomArtistQuery = 'e' // You can use any query to get random artists
+                const randomTrackQuery = 't'
+                const randomArtistQuery = 't'
 
-                const tracks = await APIController.searchTracks(token, randomTrackQuery, 5)
+                const tracks = await APIController.searchTracks(token, randomTrackQuery, 8)
                 const artists = await APIController.searchArtists(token, randomArtistQuery, 5)
-                const pb = await APIController.searchTracks(token, 'n', 1)
+                const pb = await APIController.searchTracks(token, '29 gold', 1)
                 UIController.displayLibraryItems(tracks, artists)
                 UIController.displayPlaybackSong(pb)
 
-                // Fetch and play "29 Gold Stars" by Nathan Cavaleri
-                
+
+
             })
 
         }

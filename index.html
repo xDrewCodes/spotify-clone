@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="nav__search">
-            <i class="fas fa-home nav__home--icon"></i>
+            <i id="nav__home--button" class="fas fa-home nav__home--icon"></i>
             <div class="nav__search-bar">
                 <i id="search__button" class="fas fa-search nav__search--icon"></i>
                 <input id="search__input" type="text" placeholder="What do you want to play?"
@@ -116,16 +116,25 @@
         <div id="playback__song" class="playback__song">
 
         </div>
-        <div class="playback__controls">Pause Play Skip</div>
+        <div class="playback__controls">
+            <div class="playback__controls--icons">
+                <i class="fas fa-random playback__shuffle"></i>
+                <i class="fas fa-step-backward playback__backward"></i>
+                <i class="fas fa-play playback__play-pause"></i>
+                <i class="fas fa-step-forward playback__forward"></i>
+                <i class="fa fa-repeat playback__loop"></i>
+            </div>
+            <div class="playback__controls--bar"></div>
+        </div>
         <div class="playback__edits">
-            <i class="fas fa-times playback__now-playing"></i>
-            <i class="fas fa-times playback__lyrics"></i>
-            <i class="fas fa-times playback__queue"></i>
-            <i class="fas fa-times playback__output"></i>
-            <i class="fas fa-times playback__volume"></i>
+            <i class="fas fa-caret-square-right playback__now-playing"></i>
+            <i class="fas fa-microphone playback__lyrics"></i>
+            <i class="fas fa-server playback__queue"></i>
+            <i class="fas fa-eschange playback__output"></i>
+            <i class="fas fa-volume-up playback__volume"></i>
             <div class="playback__volume--bar"></div>
-            <i class="fas fa-times playback__miniplayer"></i>
-            <i class="fas fa-times playback__full-screen"></i>
+            <i class="fas fa-window-restore playback__miniplayer"></i>
+            <i class="fas fa-expand playback__full-screen"></i>
         </div>
     </div>
 </body>
