@@ -122,7 +122,8 @@ section {
     display: flex;
     margin: 0 4px;
     flex-direction: column;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 section#home {
@@ -218,12 +219,12 @@ section#home {
     position: absolute;
     top: 25px;
     left: 28px;
-    display: none;
+    visibility: hidden;
 }
 
 .track__item:hover .track__item--play,
 .artist__item:hover .track__item--play {
-    display: block;
+    visibility: visible;
 }
 
 .track__artist {
@@ -279,6 +280,24 @@ section#home {
     overflow-y: scroll;
 }
 
+.home__sub-section {
+    margin-top: 32px;
+}
+
+.home__sub-section--container {
+    display: flex;
+}
+
+.home__track--item {
+    margin-right: 16px;
+    margin-top: 16px;
+    font-size: 14px;
+}
+
+.home__track--item img {
+    height: 120px;
+    width: 120px;
+}
 
 .playback {
     position: absolute;
@@ -300,10 +319,6 @@ section#home {
 
 .playback__song {
     height: 100%;
-}
-
-.playback__song:hover {
-    
 }
 
 .playback__song--item {
