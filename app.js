@@ -80,6 +80,7 @@ const UIController = (function () {
     const createTrackItem = (track) => {
         return `<div class="track__item">
                     <img src="${track.album.images[0].url}" alt="${track.name}">
+                    <i class="fas fa-play track__item--play"></i>
                     <div class="track__info">
                         <p>${track.name}</p>
                         <p class="track__artist">${track.artists[0].name}</p>
@@ -90,6 +91,7 @@ const UIController = (function () {
     const createArtistItem = (artist) => {
         return `<div class="artist__item">
                     <img src="${artist.images[0].url}" alt="${artist.name}">
+                    <i class="fas fa-play track__item--play"></i>
                     <div class="artist__info">
                         <p>${artist.name}</p>
                     </div>
@@ -140,7 +142,7 @@ const UIController = (function () {
         displayPlaybackSong(pb) {
             const playbackSong = document.querySelector(DOMElements.playbackSong)
             pb.forEach(song => {
-                playbackSong.innerHTML = createTrackItem(song)
+                playbackSong.innerHTML = createPlaybackSong(song)
             })
         },
         playTrack(track) {
@@ -189,7 +191,7 @@ const UIController = (function () {
                 const randomArtistQuery = 't'
 
                 const tracks = await APIController.searchTracks(token, randomTrackQuery, 8)
-                const artists = await APIController.searchArtists(token, randomArtistQuery, 5)
+                const artists = await APIController.searchArtists(token, randomArtistQuery, 8)
                 const pb = await APIController.searchTracks(token, '29 gold', 1)
                 UIController.displayLibraryItems(tracks, artists)
                 UIController.displayPlaybackSong(pb)

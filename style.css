@@ -20,12 +20,22 @@ html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
+    scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
 }
 
 body {
     background-color: var(--bg__color);
     color: white;
     font-family: 'signika';
+}
+
+i {
+    cursor: pointer;
 }
 
 nav {
@@ -120,13 +130,15 @@ section#home {
     padding: 16px 48px;
 }
 
-section#library,
-section#now-playing {
+#library,
+#now-playing {
     width: 23%;
-    padding: 16px;
+    padding: 16px 16px 0 16px;
 }
 
-.section__title {}
+#library {
+    padding: 16px 16px 0 8px;
+}
 
 .category {
     background-color: #242424;
@@ -134,11 +146,21 @@ section#now-playing {
     border-radius: 99px;
     margin-right: 8px;
     font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.category:hover {
+    background-color: #2c2c2c;
 }
 
 .selected__category {
     background-color: white;
     color: var(--bg__color)
+}
+
+.selected__category:hover {
+    background-color: white;
 }
 
 
@@ -169,7 +191,15 @@ section#now-playing {
 .artist__item {
     display: flex;
     align-items: center;
-    margin-top: 12px;
+    padding: 6px 0 6px 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.track__item:hover,
+.artist__item:hover {
+    background-color: rgba(150, 150, 150, 0.1);
 }
 
 .track__item img,
@@ -177,6 +207,23 @@ section#now-playing {
     width: 50px;
     height: 50px;
     margin-right: 12px;
+}
+
+.track__item:hover img,
+.artist__item:hover img {
+    filter: brightness(0.7);
+}
+
+.track__item--play {
+    position: absolute;
+    top: 25px;
+    left: 28px;
+    display: none;
+}
+
+.track__item:hover .track__item--play,
+.artist__item:hover .track__item--play {
+    display: block;
 }
 
 .track__artist {
@@ -227,6 +274,11 @@ section#now-playing {
     display: none;
 }
 
+.library__main {
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
 
 .playback {
     position: absolute;
@@ -250,11 +302,23 @@ section#now-playing {
     height: 100%;
 }
 
-.playback__song .track__item {
+.playback__song:hover {
+    
+}
+
+.playback__song--item {
     width: 100%;
     height: 100%;
     margin-left: 32px;
     margin-top: 0;
+    display: flex;
+    align-items: center;
+}
+
+.playback__song--item img {
+    height: 50px;
+    width: 50px;
+    margin-right: 12px;
 }
 
 .playback__song .track__info {
@@ -280,6 +344,12 @@ section#now-playing {
     color: var(--bg__color);
     padding: 8px 7px 8px 9px;
     border-radius: 100px;
+    transition: all 0.2s ease;
+}
+
+.playback__play-pause:hover {
+    transform: scale(1.02);
+    filter: brightness(0.9);
 }
 
 .playback__forward,
