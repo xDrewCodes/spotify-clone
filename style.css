@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Signika:wght@300..700&display=swap');
 
 html {
-    --bg__color: rgb(20, 20, 20);
-    --bg__color__light: rgb(25, 25, 25);
+    --bg__color: rgb(0, 0, 0);
+    --bg__color__light: rgb(18, 18, 18);
 
     --sb-track-color: #232E33;
     --sb-thumb-color: rgba(255, 255, 255, 0.4);
@@ -116,7 +116,6 @@ nav {
 }
 
 section {
-    background: var(--bg__color__light);
     height: 100%;
     border-radius: 8px;
     display: flex;
@@ -127,13 +126,15 @@ section {
 }
 
 section#home {
-    width: 50%;
+    width: 56%;
     padding: 16px 48px;
+    background: linear-gradient(rgb(67, 56, 129), var( --bg__color__light ) 25% );
 }
 
 #library,
 #now-playing {
-    width: 23%;
+    background: var(--bg__color__light);
+    width: 20%;
     padding: 16px 16px 0 16px;
 }
 
@@ -179,6 +180,17 @@ section#home {
 
 .search__results {
     display: flex;
+    flex-direction: column;
+}
+
+.search__categories {
+    display: flex;
+    margin-bottom: 32px;
+}
+
+.search__results--container {
+    display: flex;
+    margin: 0 auto;
 }
 
 .search__songs {
@@ -186,6 +198,8 @@ section#home {
     flex-direction: column;
     justify-content: space-between;
     height: 282px;
+    width: 500px;
+    max-width: 100%;
 }
 
 .track__item,
@@ -236,6 +250,12 @@ section#home {
     border-radius: 50%;
 }
 
+.track__dur {
+    position: absolute;
+    right: 8px;
+    color: #b4b4b4;
+}
+
 .search__top-result--song .track__item {
     display: flex;
     flex-direction: column;
@@ -280,6 +300,28 @@ section#home {
     overflow-y: scroll;
 }
 
+.home__recents {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.home__recent {
+    background-color: rgba(255, 255, 255, 0.103);
+    height: 48px;
+    width: calc( 25% - 8px );
+    margin: 4px;
+    display: flex;
+    align-items: center;
+    text-indent: 12px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.home__recent img {
+    height: 100%;
+}
+
 .home__sub-section {
     margin-top: 32px;
 }
@@ -294,9 +336,35 @@ section#home {
     font-size: 14px;
 }
 
+.home__artist--item {
+    margin-right: 16px;
+    margin-top: 16px;
+    font-size: 14px;
+}
+
 .home__track--item img {
     height: 120px;
     width: 120px;
+}
+
+.home__artist--item img {
+    height: 120px;
+    width: 120px;
+    border-radius: 100px;
+}
+
+.home__track--info {
+    margin-top: 4px;
+    line-height: 1.5;
+}
+
+.home__track--artist {
+    color: #b4b4b4;
+    font-size: 13px;
+}
+
+.home__artist--sub-heading {
+    color: #b4b4b4;
 }
 
 .playback {
@@ -379,20 +447,14 @@ section#home {
     background-color: #b4b4b4;
     border-radius: 100px;
     position: relative;
+    text-indent: 102%;
+    line-height: 30%;
 }
 
 .playback__controls--bar::before {
     content: '0:00';
     position: absolute;
-    left: -40px;
-    top: -150%;
-}
-
-.playback__controls--bar::after {
-    content: '3:29';
-    position: absolute;
-    right: -40px;
-    top: -150%;
+    left: -70px;
 }
 
 .playback__controls--icons {
