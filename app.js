@@ -265,11 +265,15 @@ const UIController = (function () {
             const trackRec = document.querySelector(DOMElements.trackRec)
             const artistRec = document.querySelector(DOMElements.artistRec)
 
+            trackRec.innerHTML = ''
+
             tracks.forEach(song => {
 
                 trackRec.innerHTML += createRecSong(song)
 
             })
+
+            artistRec.innerHTML = ''
 
             artists.forEach(artist => {
 

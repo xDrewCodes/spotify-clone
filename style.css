@@ -172,6 +172,46 @@ section#home {
     padding: 16px 16px 0 8px;
 }
 
+.library__top--container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.library__title--container {
+    display: flex;
+}
+
+.fa-th {
+    margin-left: 10px;
+}
+
+.library__title {
+    margin-left: 10px;
+}
+
+.library__expand {
+    margin-left: 10px;
+}
+
+.library__filters {
+    display: flex;
+    justify-content: space-between;
+}
+
+.library__search {
+    margin-left: 10px;
+}
+
+.library__sort {
+    margin-right: 10px;
+}
+
+.library__sort::after {
+    content: 'Recents';
+    margin-left: -80px;
+    font-family: 'signika';
+}
+
 .category {
     background-color: #242424;
     padding: 4px 16px;
@@ -480,6 +520,16 @@ section#home {
     font-size: 18px;
 }
 
+.now-playing__container h3:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.now-playing__container h2:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .now-playing__img {
     border-radius: 8px;
     margin-bottom: 16px;
@@ -520,6 +570,11 @@ section#home {
     position: absolute;
     top: 16px;
     left: 16px;
+}
+
+.now-playing__artist-section--name:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .playback {
@@ -646,6 +701,25 @@ section#home {
     position: absolute;
 }
 
+
+/* SKELETON */
+
+.home__track--skelly {
+    height: 160px;
+    width: 160px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.home__artist--skelly {
+    height: 160px;
+    width: 160px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 400px;
+}
+
+
+/* RESPONSIVE */
 
 @media ( max-width: 1850px ) {
     .home__recent {
