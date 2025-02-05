@@ -171,11 +171,35 @@ const UIController = (function () {
     }
 
     const createRecentItem = (recent, type, search) => {
-        console.log(recent)
         return `<div class="home__recent">
                     <img src="${search == 'track' ? recent.album.images[2].url : recent.images[0].url}" alt="${recent.name}">
                     <p>${recent.name}${ type != 'radio' ? '' : ' Radio' }</p>
+                    <i class="fas fa-play home__recent--icon"></i>
                 </div>`
+    }
+
+    const createNowPlayingItems = (track, artist) => {
+        console.log(artist)
+        return `<div class="now-playing__container">
+    <div class="now-playing__header">
+        <h2 class="now-playing__title">${track.album.name}</h2>
+        <div class="now-playing__header--icons">
+            <i class="fas fa-ellipsis-h"></i>
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+    <img src="${track.album.images[0].url}" alt="" class="now-playing__img">
+    <h2>${track.name}</h2>
+    <h3>${artist.name}</h3>
+    <div class="now-playing__artist-section">
+        <img src="${artist.images[0].url}" alt="" class="now-playing__artist-section--img">
+        <p class="now-playing__artist-section--title">About the artist</p>
+        <div class="now-playing__artist-section--info">
+            <div class="now-playing__artist-section--name">${artist.name}</div>
+            <div class="now-playing__artist-section--listeners">${artist.followers.total.toLocaleString()} followers</div>
+        </div>
+    </div>
+</div>`
     }
 
     return {
@@ -254,6 +278,12 @@ const UIController = (function () {
             })
 
         },
+        nowPlaying(track, artist) {
+
+            const nowPlayingRef = document.querySelector('#now-playing')
+            nowPlayingRef.innerHTML = createNowPlayingItems(track[0], artist[0])
+
+        },
         async load() {
 
             const token = await APIController.getToken()
@@ -266,8 +296,8 @@ const UIController = (function () {
 
             const tracks = await APIController.searchTracks(token, randomTrackQuery, 8)
             const artists = await APIController.searchArtists(token, randomArtistQuery, 8)
-            const pb = await APIController.searchTracks(token, '29 gold', 1)
-
+            const pb = await APIController.searchTracks(token, 'nancy', 1)
+            const pbArtist = await APIController.searchArtists(token, pb[0].artists[0].name, 1)
 
             const recTracks = await APIController.searchTracks(token, randomRecQuery, 7)
             const recArtists = await APIController.searchArtists(token, favArtistsQuery, 7)
@@ -288,6 +318,8 @@ const UIController = (function () {
                 })
 
             })
+
+            UIController.nowPlaying(pb, pbArtist)
 
             const recents = [
                 {
@@ -340,22 +372,25 @@ const UIController = (function () {
                 if (i % 2 == 1) {
 
                     let recentItem
+                    const imgBlur = document.getElementsByClassName('home__bg-img--container')[0]
                    
                     if ( recents[trueI].search == 'album' ) {
                         recentItem = await APIController.searchAlbums(token, recents[trueI].query, 1)
+                        imgBlur.innerHTML += `<img class="home__recent--blur" src="${recentItem[0].images[0].url}"></img>`
                     } else if ( recents[trueI].search == 'artist' ) {
                         recentItem = await APIController.searchArtists(token, recents[trueI].query, 1)
+                        imgBlur.innerHTML += `<img class="home__recent--blur" src="${recentItem[0].images[0].url}"></img>`
                     } else if ( recents[trueI].search == 'track' ) {
                         recentItem = await APIController.searchTracks(token, recents[trueI].query, 1)
+                        imgBlur.innerHTML += `<img class="home__recent--blur" src="${recentItem[0].album.images[0].url}"></img>`
                     }
-                    
-                    console.log(recentItem[0])
                     
                     recentsRef.childNodes[i].outerHTML = createRecentItem(
                         recentItem[0],
                         recents[trueI].type,
                         recents[trueI].search
                     )
+
                 }
 
             }
