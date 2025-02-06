@@ -179,7 +179,6 @@ const UIController = (function () {
     }
 
     const createNowPlayingItems = (track, artist) => {
-        console.log(artist)
         return `<div class="now-playing__container">
     <div class="now-playing__header">
         <h2 class="now-playing__title">${track.album.name}</h2>
@@ -248,15 +247,19 @@ const UIController = (function () {
             })
 
         },
-        displayPlaybackSong(pb) {
+        async displayPlaybackSong(pb, artist) {
 
-            pb = pb[0]
+            const tk = await APIController.getToken()
+            const trk = await APIController.searchTracks(tk, pb + ' ' + artist, 1)
+            const art = await APIController.searchArtists(tk, artist, 1)
 
             const playbackSong = document.querySelector(DOMElements.playbackSong)
             const playbackDur = document.querySelector(DOMElements.playbackDur)
-            playbackSong.innerHTML = createPlaybackSong(pb)
+            playbackSong.innerHTML = createPlaybackSong(trk[0])
+            
+            UIController.nowPlaying(trk[0], art[0])
 
-            const dur = pb.duration_ms
+            const dur = trk[0].duration_ms
             playbackDur.innerHTML = Math.floor(dur / 60000) + ':' + Math.floor((dur / 1000) % 60)
 
         },
@@ -285,7 +288,26 @@ const UIController = (function () {
         nowPlaying(track, artist) {
 
             const nowPlayingRef = document.querySelector('#now-playing')
-            nowPlayingRef.innerHTML = createNowPlayingItems(track[0], artist[0])
+            nowPlayingRef.innerHTML = createNowPlayingItems(track, artist)
+
+        },
+        playbackSetup() {
+
+            const els = document.getElementsByClassName('fa-play')
+
+            
+            Array.from(els).forEach((el) => {
+                el.addEventListener('click', async () => {
+
+                    const song = el.parentElement.querySelector('div').querySelector('p').textContent
+                    const artist = el.parentElement.querySelector('div').querySelector('.track__artist').textContent
+
+                    UIController.displayPlaybackSong( song, artist )
+
+
+                })
+
+            })
 
         },
         async load() {
@@ -300,30 +322,15 @@ const UIController = (function () {
 
             const tracks = await APIController.searchTracks(token, randomTrackQuery, 8)
             const artists = await APIController.searchArtists(token, randomArtistQuery, 8)
-            const pb = await APIController.searchTracks(token, 'nancy', 1)
-            const pbArtist = await APIController.searchArtists(token, pb[0].artists[0].name, 1)
+            const pb = 'dive ed sheeran'
 
             const recTracks = await APIController.searchTracks(token, randomRecQuery, 7)
             const recArtists = await APIController.searchArtists(token, favArtistsQuery, 7)
 
             UIController.displayLibraryItems(tracks, artists)
-            UIController.displayPlaybackSong(pb)
+            UIController.displayPlaybackSong(pb, pb)
             UIController.displayHomeRecs(recTracks, recArtists)
-
-            const els = document.getElementsByClassName('fa-play')
-
-            Array.from(els).forEach((el) => {
-
-                el.addEventListener('click', async () => {
-
-
-                    document.querySelector(DOMElements.playbackSong).innerHTML = el.parentElement
-
-                })
-
-            })
-
-            UIController.nowPlaying(pb, pbArtist)
+            UIController.playbackSetup()
 
             const recents = [
                 {
@@ -411,9 +418,10 @@ const UIController = (function () {
 
             document.querySelector(DOMElements.searchInput).addEventListener('change', async () => {
 
+                UIController.playbackSetup()
+
                 if (document.querySelector(DOMElements.searchInput).value == '') {
                     document.querySelector(DOMElements.body).classList.remove('search__open')
-                    document.querySelector(DOMElements.searchInput).value = ''
                     return
                 }
 
@@ -421,11 +429,14 @@ const UIController = (function () {
                 const token = await APIController.getToken()
                 const tracks = await APIController.searchTracks(token, query)
                 UIController.displayTracks(tracks)
+                UIController.playbackSetup()
                 document.querySelector(DOMElements.body).classList.add('search__open')
 
             })
 
             document.querySelector(DOMElements.searchButton).addEventListener('click', async () => {
+
+                UIController.playbackSetup()
 
                 const query = UIController.getInput()
                 const token = await APIController.getToken()
