@@ -281,6 +281,14 @@ section#home {
     border-radius: 4px;
 }
 
+.search__top-result > .search__top-result--song > .track__item .track__item--play {
+    position: absolute;
+    top: unset;
+    left: unset;
+    bottom: 40px;
+    right: 32px;
+}
+
 .search__results {
     display: flex;
     flex-direction: column;
@@ -556,9 +564,17 @@ section#home {
     font-size: 18px;
 }
 
+.now-playing__container h3 {
+    width: fit-content;
+}
+
 .now-playing__container h3:hover {
     text-decoration: underline;
     cursor: pointer;
+}
+
+.now-playing__container h2 {
+    width: fit-content;
 }
 
 .now-playing__container h2:hover {
@@ -606,6 +622,10 @@ section#home {
     position: absolute;
     top: 16px;
     left: 16px;
+}
+
+.now-playing__artist-section--name {
+    width: fit-content;
 }
 
 .now-playing__artist-section--name:hover {
